@@ -1,0 +1,503 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-08 17:15+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\AiDream\views.py:177 .\AiDream\views.py:178 .\AiDream\views.py:271
+#: .\AiDream\views.py:272 .\AiDream\views.py:326 .\AiDream\views.py:360
+#: .\AiDream\views.py:366 .\templates\base.html:37 .\templates\home.html:4
+#: .\templates\login.html:4 .\templates\register.html:4
+#: .\templates\resetPassword.html:4 .\templates\showImage.html:4
+msgid "AI图生图"
+msgstr "AI图生图"
+
+#: .\AiDream\views.py:177 .\AiDream\views.py:178
+msgid "生图任务完成"
+msgstr "生图任务完成"
+
+#: .\AiDream\views.py:177 .\AiDream\views.py:271
+msgid "点击前往查看"
+msgstr "点击前往查看"
+
+#: .\AiDream\views.py:271 .\AiDream\views.py:272
+msgid "Tag创建任务完成"
+msgstr "Tag创建任务完成"
+
+#: .\AiDream\views.py:348 .\AiDream\views.py:352 .\AiDream\views.py:354
+#: .\AiDream\views.py:357 .\AiDream\views.py:369 .\AiDream\views.py:375
+#: .\AiDream\views.py:377
+msgid "注册失败"
+msgstr "注册失败"
+
+#: .\AiDream\views.py:348 .\AiDream\views.py:389
+msgid "验证码错误"
+msgstr "验证码错误"
+
+#: .\AiDream\views.py:352
+msgid "邮箱长度不能超过50字符"
+msgstr "邮箱长度不能超过50字符"
+
+#: .\AiDream\views.py:354 .\AiDream\views.py:393 .\AiDream\views.py:409
+#: .\AiDream\views.py:448 .\AiDream\views.py:482
+msgid "请检查表单填写状况"
+msgstr "请检查表单填写状况"
+
+#: .\AiDream\views.py:357 .\AiDream\views.py:375
+msgid "用户已注册"
+msgstr "用户已注册"
+
+#: .\AiDream\views.py:360 .\AiDream\views.py:366
+msgid "注册确认邮件"
+msgstr "注册确认邮件"
+
+#: .\AiDream\views.py:360
+msgid "请点击此处确认注册"
+msgstr "请点击此处确认注册"
+
+#: .\AiDream\views.py:367
+msgid "注册确认邮件发送成功"
+msgstr "注册确认邮件发送成功"
+
+#: .\AiDream\views.py:367
+msgid "请在30分钟内前往邮箱确认注册"
+msgstr "请在30分钟内前往邮箱确认注册"
+
+#: .\AiDream\views.py:369
+msgid "邮件发送失败"
+msgstr "邮件发送失败"
+
+#: .\AiDream\views.py:377
+msgid "有效期已过"
+msgstr "有效期已过"
+
+#: .\AiDream\views.py:379
+msgid "注册成功"
+msgstr "注册成功"
+
+#: .\AiDream\views.py:379
+msgid "请前往登录"
+msgstr "请前往登录"
+
+#: .\AiDream\views.py:389 .\AiDream\views.py:393 .\AiDream\views.py:396
+msgid "登录失败"
+msgstr "登录失败"
+
+#: .\AiDream\views.py:396
+msgid "用户名或密码输入错误"
+msgstr "用户名或密码输入错误"
+
+#: .\AiDream\views.py:409 .\AiDream\views.py:413
+msgid "修改失败"
+msgstr "修改失败"
+
+#: .\AiDream\views.py:413
+msgid "旧密码输入错误"
+msgstr "旧密码输入错误"
+
+#: .\AiDream\views.py:417
+msgid "修改成功"
+msgstr "修改成功"
+
+#: .\AiDream\views.py:417
+msgid "请重新登录"
+msgstr "请重新登录"
+
+#: .\AiDream\views.py:448 .\AiDream\views.py:482 .\AiDream\views.py:487
+#: .\AiDream\views.py:490
+msgid "添加任务失败"
+msgstr "添加任务失败"
+
+#: .\AiDream\views.py:475 .\AiDream\views.py:506
+msgid "任务创建成功"
+msgstr "任务创建成功"
+
+#: .\AiDream\views.py:475
+msgid "请去往生图管理下载图片"
+msgstr "请去往生图管理下载图片"
+
+#: .\AiDream\views.py:487
+msgid "Tag名称已存在"
+msgstr "Tag名称已存在"
+
+#: .\AiDream\views.py:490
+msgid "无照片"
+msgstr "无照片"
+
+#: .\AiDream\views.py:506
+msgid "请等待任务完成"
+msgstr "请等待任务完成"
+
+#: .\AiDream\views.py:557
+msgid "为NovelAI写一段描写如下要素的tag："
+msgstr "为NovelAI写一段描写如下要素的tag："
+
+#: .\AiDream\views.py:557
+msgid "输出格式：要素1，要素2，要素3……"
+msgstr "输出格式：要素1，要素2，要素3……"
+
+#: .\AiDream\views.py:557
+msgid "以此类推，用英文，至少45个要素，不重复并为比较重要的要素加上括号"
+msgstr "以此类推，用英文，至少45个要素，不重复并为比较重要的要素加上括号"
+
+#: .\templates\base.html:9
+msgid "/static/js/layui.js"
+msgstr "/static/js/layui-zh_hans.js"
+
+#: .\templates\base.html:80
+msgid "个人主页"
+msgstr "个人主页"
+
+#: .\templates\base.html:87
+msgid "退出登录"
+msgstr "退出登录"
+
+#: .\templates\home.html:4
+msgid "用户主页"
+msgstr "用户主页"
+
+#: .\templates\home.html:29
+msgid "Tag管理"
+msgstr "Tag管理"
+
+#: .\templates\home.html:32
+msgid "生图管理"
+msgstr "生图管理"
+
+#: .\templates\home.html:35
+msgid "个人信息"
+msgstr "个人信息"
+
+#: .\templates\home.html:48
+msgid "创建Tag"
+msgstr "创建Tag"
+
+#: .\templates\home.html:54
+msgid "Tag名称:"
+msgstr "Tag名称:"
+
+#: .\templates\home.html:57 .\templates\home.html:319 .\templates\home.html:326
+msgid "请输入"
+msgstr "请输入"
+
+#: .\templates\home.html:64
+msgid "上传训练图片"
+msgstr "上传训练图片"
+
+#: .\templates\home.html:66
+msgid "预览图："
+msgstr "预览图："
+
+#: .\templates\home.html:75 .\templates\home.html:307
+msgid "提交"
+msgstr "提交"
+
+#: .\templates\home.html:76 .\templates\home.html:308
+msgid "重置"
+msgstr "重置"
+
+#: .\templates\home.html:94
+msgid "图片上传中..."
+msgstr "图片上传中..."
+
+#: .\templates\home.html:127
+msgid "创建的Tag任务状态"
+msgstr "创建的Tag任务状态"
+
+#: .\templates\home.html:128
+msgid "点击行进行删除"
+msgstr "点击行进行删除"
+
+#: .\templates\home.html:137
+msgid "名称"
+msgstr "名称"
+
+#: .\templates\home.html:143 .\templates\home.html:448
+msgid "完成状态"
+msgstr "完成状态"
+
+#: .\templates\home.html:150 .\templates\home.html:442
+msgid "创建时间"
+msgstr "创建时间"
+
+#: .\templates\home.html:176
+msgid "确认删除"
+msgstr "确认删除"
+
+#: .\templates\home.html:176
+msgid "？"
+msgstr "？"
+
+#: .\templates\home.html:177
+msgid "删除"
+msgstr "删除"
+
+#: .\templates\home.html:179
+msgid "正在删除，请稍后"
+msgstr "正在删除，请稍后"
+
+#: .\templates\home.html:195
+msgid "任务暂未完成，无法删除"
+msgstr "任务暂未完成，无法删除"
+
+#: .\templates\home.html:206
+msgid "输入Tag生图"
+msgstr "输入Tag生图"
+
+#: .\templates\home.html:212
+msgid "提示词:"
+msgstr "提示词:"
+
+#: .\templates\home.html:214 .\templates\home.html:225
+msgid "Tag间用英文逗号隔开"
+msgstr "Tag间用英文逗号隔开"
+
+#: .\templates\home.html:217
+msgid "chat-gpt一键生成提示词"
+msgstr "chat-gpt一键生成提示词"
+
+#: .\templates\home.html:223
+msgid "反向提示词:"
+msgstr "反向提示词:"
+
+#: .\templates\home.html:231
+msgid "宽度:"
+msgstr "宽度:"
+
+#: .\templates\home.html:241
+msgid "高度:"
+msgstr "高度:"
+
+#: .\templates\home.html:251
+msgid "生成批次:"
+msgstr "生成批次:"
+
+#: .\templates\home.html:261
+msgid "生成数量:"
+msgstr "生成数量:"
+
+#: .\templates\home.html:271
+#, python-format
+msgid "美术风格权重%%:"
+msgstr "美术风格权重%%:"
+
+#: .\templates\home.html:281
+msgid "美术风格迭代步数:"
+msgstr "美术风格迭代步数:"
+
+#: .\templates\home.html:291
+msgid "面部修复:"
+msgstr "面部修复:"
+
+#: .\templates\home.html:293
+msgid "是"
+msgstr "是"
+
+#: .\templates\home.html:293
+msgid "否"
+msgstr "否"
+
+#: .\templates\home.html:299
+msgid "种子:"
+msgstr "种子:"
+
+#: .\templates\home.html:317
+msgid "输入描述"
+msgstr "输入描述"
+
+#: .\templates\home.html:324
+msgid "生成结果"
+msgstr "生成结果"
+
+#: .\templates\home.html:330 .\templates\home.html:331
+msgid "生成"
+msgstr "生成"
+
+#: .\templates\home.html:333
+msgid "正在生成，请稍后"
+msgstr "正在生成，请稍后"
+
+#: .\templates\home.html:431
+msgid "创建的生图任务状态"
+msgstr "创建的生图任务状态"
+
+#: .\templates\home.html:432
+msgid "点击行下载生成完成的图片"
+msgstr "点击行下载生成完成的图片"
+
+#: .\templates\home.html:454
+msgid "提示词"
+msgstr "提示词"
+
+#: .\templates\home.html:455
+msgid "反向提示词"
+msgstr "反向提示词"
+
+#: .\templates\home.html:456
+msgid "宽度"
+msgstr "宽度"
+
+#: .\templates\home.html:457
+msgid "高度"
+msgstr "高度"
+
+#: .\templates\home.html:458
+msgid "生成批次"
+msgstr "生成批次"
+
+#: .\templates\home.html:459
+msgid "生成数量"
+msgstr "生成数量"
+
+#: .\templates\home.html:460
+msgid "美术风格权重"
+msgstr "美术风格权重"
+
+#: .\templates\home.html:461
+msgid "美术风格迭代步数"
+msgstr "美术风格迭代步数"
+
+#: .\templates\home.html:462
+msgid "种子"
+msgstr "种子"
+
+#: .\templates\home.html:484
+msgid "任务暂未完成，无法查看"
+msgstr "任务暂未完成，无法查看"
+
+#: .\templates\home.html:495 .\templates\login.html:140
+#: .\templates\login.html:141 .\templates\register.html:140
+#: .\templates\register.html:141
+msgid "邮箱"
+msgstr "邮箱"
+
+#: .\templates\home.html:499 .\templates\resetPassword.html:4
+#: .\templates\resetPassword.html:135
+msgid "修改密码"
+msgstr "修改密码"
+
+#: .\templates\home.html:500
+msgid "点击此处"
+msgstr "点击此处"
+
+#: .\templates\home.html:503
+msgid "联系管理"
+msgstr "联系管理"
+
+#: .\templates\info.html:14
+msgid "返回"
+msgstr "返回"
+
+#: .\templates\login.html:4 .\templates\login.html:135
+#: .\templates\login.html:181
+msgid "登录"
+msgstr "登录"
+
+#: .\templates\login.html:136
+msgid "没有账号？"
+msgstr "没有账号？"
+
+#: .\templates\login.html:136
+msgid "点此注册"
+msgstr "点此注册"
+
+#: .\templates\login.html:142 .\templates\login.html:149
+#: .\templates\register.html:142 .\templates\register.html:149
+#: .\templates\register.html:156 .\templates\resetPassword.html:146
+#: .\templates\resetPassword.html:153
+msgid "验证成功"
+msgstr "验证成功"
+
+#: .\templates\login.html:143 .\templates\register.html:143
+msgid "请输入正确的邮箱"
+msgstr "请输入正确的邮箱"
+
+#: .\templates\login.html:147 .\templates\login.html:148
+#: .\templates\register.html:147 .\templates\register.html:148
+msgid "密码"
+msgstr "密码"
+
+#: .\templates\login.html:150
+msgid "请输入正确的密码"
+msgstr "请输入正确的密码"
+
+#: .\templates\login.html:156 .\templates\login.html:157
+#: .\templates\register.html:163 .\templates\register.html:164
+msgid "验证码"
+msgstr "验证码"
+
+#: .\templates\login.html:182 .\templates\register.html:188
+#: .\templates\resetPassword.html:158
+msgid "AI图生图：你的自定义头像生成器"
+msgstr "AI图生图：你的自定义头像生成器"
+
+#: .\templates\register.html:4 .\templates\register.html:135
+#: .\templates\register.html:187 .\templates\resetPassword.html:157
+msgid "注册"
+msgstr "注册"
+
+#: .\templates\register.html:136
+msgid "已有账号？"
+msgstr "已有账号？"
+
+#: .\templates\register.html:136
+msgid "点此登录"
+msgstr "点此登录"
+
+#: .\templates\register.html:150 .\templates\resetPassword.html:147
+msgid "密码需 8-30 字符且包含字母及数字"
+msgstr "密码需 8-30 字符且包含字母及数字"
+
+#: .\templates\register.html:154 .\templates\register.html:155
+msgid "确认密码"
+msgstr "确认密码"
+
+#: .\templates\register.html:157 .\templates\resetPassword.html:154
+msgid "请重复输入相同密码"
+msgstr "请重复输入相同密码"
+
+#: .\templates\register.html:223
+msgid "正在发送注册确认邮件"
+msgstr "正在发送注册确认邮件"
+
+#: .\templates\resetPassword.html:139 .\templates\resetPassword.html:140
+msgid "旧密码"
+msgstr "旧密码"
+
+#: .\templates\resetPassword.html:144 .\templates\resetPassword.html:145
+msgid "新密码"
+msgstr "新密码"
+
+#: .\templates\resetPassword.html:151 .\templates\resetPassword.html:152
+msgid "确认新密码"
+msgstr "确认新密码"
+
+#: .\templates\resetPassword.html:189
+msgid "新密码不能与旧密码一致"
+msgstr "新密码不能与旧密码一致"
+
+#: .\templates\showImage.html:4
+msgid "图片预览"
+msgstr "图片预览"
+
+#: .\templates\showImage.html:9
+msgid "下载全部"
+msgstr "下载全部"
+
+#: .\templates\showImage.html:10
+msgid "生成图片预览"
+msgstr "生成图片预览"

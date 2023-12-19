@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}{% load i18n %}
+{% block head %}
+    <title>信息</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">{{title}}</h1>
+        <p class="lead">{{info}}</p>
+        {% if returnUrl %}
+            <hr class="my-4">
+            <a class="btn btn-primary btn-lg" href="{{returnUrl}}" role="button">{% translate '返回' %}</a></div>
+        {% endif %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}{% load i18n %}
+{% block head %}
+    <title>{% translate 'AI图生图' %} | {% translate '图片预览' %}</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="min-width: 90%; width: 90%">
+    <a class="btn btn-primary" style="float: right" href="/downloadGenerateImage?id={{ generate_id }}">{% translate '下载全部' %}</a>
+        <h3>{% translate '生成图片预览' %}</h3>
+
+        <br>
+        <div class="row row-cols-2 row-cols-md-4">
+            {% for i in file_list %}
+                <div class="col-md">
+                    <img src="/getGenerateImage?id={{ generate_id }}&name={{ i }}" class="img-thumbnail">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

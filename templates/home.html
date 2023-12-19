@@ -1,0 +1,514 @@
+{% extends "base.html" %}
+{% load static %}{% load i18n %}
+{% block head %}
+    <title>{% translate 'AI图生图' %} | {% translate '用户主页' %}</title>
+    <style>
+        .layui-form-label {
+            text-align: left;
+        }
+
+        .layui-input {
+            padding-left: 5px;
+        }
+
+        .widget-slider {
+            top: 18px;
+        }
+
+        .tabulator {
+            background-color: #F5F5F5 !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="min-width: 90%; width: 90%">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-embedding-tab" data-toggle="tab" data-target="#nav-embedding" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                    {% translate 'Tag管理' %}
+                </button>
+                <button class="nav-link" id="nav-generate-tab" data-toggle="tab" data-target="#nav-generate" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                    {% translate '生图管理' %}
+                </button>
+                <button class="nav-link" id="nav-profile-tab" data-toggle="tab" data-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                    {% translate '个人信息' %}
+                </button>
+            </div>
+        </nav>
+        <br>
+
+
+        <div class="tab-content" id="nav-tabContent">
+
+            <div class="tab-pane fade show active" id="nav-embedding" role="tabpanel" aria-labelledby="nav-embedding-tab" style="text-align: -webkit-center;">
+                <div class="row">
+                    <div class="col-md">
+                        <h5>
+                            {% translate '创建Tag' %}</h5>
+                        <br>
+                        <form class="layui-form" style="height:100%;" id="formPreviewForm1" method="post" action="/addEmbeddingTask">
+                            <div id="name" class="layui-form-item active" data-id="name" data-tag="input"
+                                 data-index="0">
+                                <label class="layui-form-label layui-form-required" style="width: 110px;">
+                                    {% translate 'Tag名称:' %}
+                                </label>
+                                <div class="layui-input-block" style="margin-left: 110px">
+                                    <input name="name" value="" placeholder="{% translate '请输入' %}" class="layui-input" lay-vertype="tips"
+                                           lay-verify="required" style="width:100%" autocomplete="off">
+                                </div>
+                            </div>
+                            <div id="images" class="layui-form-item active" data-id="images" data-tag="image"
+                                 data-index="1">
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="imageimages">{% translate '上传训练图片' %}</button>
+                                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                                        {% translate '预览图：' %}
+                                        <div class="layui-upload-list" id="uploader-list-images"></div>
+
+                                    </blockquote>
+                                    <input name="file_upload" value="" id="file_upload" class="layui-hide">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="layui-form-item">
+                                <button type="submit" class="layui-btn" lay-submit="" lay-filter="formPreviewForm1">{% translate '提交' %}</button>
+                                <button type="reset" class="layui-btn layui-btn-primary" onclick="location.reload()">{% translate '重置' %}</button>
+                            </div>
+                        </form>
+                        <script>
+                            var uploadStatus = 0;
+
+                            function createCreateTagForm() {
+                                var upload = layui.upload;
+                                upload.render({
+                                    elem: "#imageimages",
+                                    url: "/uploadImage",
+                                    multiple: true,
+                                    before: function (obj) {
+                                        obj.preview(function (index, file, result) {
+                                            $('#uploader-list-images').append('<img style="width: 100px; height: 100px;" src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+                                            uploadStatus += 1;
+                                            console.log(uploadStatus);
+                                            if (uploadStatus == 1) {
+                                                layer.msg("{% translate '图片上传中...' %}", {
+                                                    icon: 16,
+                                                    shade: 0.01,
+                                                    time: 3600000
+                                                })
+                                            };
+                                        });
+                                        
+                                        
+                                        
+                                    },
+                                    done: function (res) {
+                                        if (document.getElementById("file_upload").value == "") {
+                                            document.getElementById("file_upload").value = res.fileid;
+                                        } else {
+                                            document.getElementById("file_upload").value = document.getElementById("file_upload").value + "_" + res.fileid;
+                                        }
+                                        uploadStatus -= 1;
+                                        console.log(uploadStatus);
+                                        if (uploadStatus == 0) {
+                                            layer.close(layer.msg());
+                                        };
+                                    }
+                                });
+                            };
+                            createCreateTagForm();
+                        </script>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-md">
+                        <h5>
+                            {% translate '创建的Tag任务状态' %}</h5>
+                            <small>{% translate '点击行进行删除' %}</small>
+                        <div id="embeddingTable" style="width: 480px"></div>
+                    </div>
+                </div>
+                <script>
+                    var embeddingTable_data = {% autoescape off %}{{ embeddingList }}{% endautoescape %};
+
+                    var embeddingTable_col = [
+                        {
+                            title: "{% translate '名称' %}",
+                            field: "embedding_name",
+                            headerSort: false,
+                            width: 200
+                        },
+                        {
+                            title: "{% translate '完成状态' %}",
+                            field: "embedding_status",
+                            formatter: "tickCross",
+                            headerSort: false,
+                            width: 120
+                        },
+                        {
+                            title: "{% translate '创建时间' %}",
+                            field: "embedding_time",
+                            headerSort: false,
+                            width: 160
+                        }
+                    ]
+
+                    for (i in embeddingTable_col) {
+                        embeddingTable_col[i]["headerHozAlign"] = "center";
+                        embeddingTable_col[i]["hozAlign"] = "center";
+                        embeddingTable_col[i]["vertAlign"] = "middle";
+                    }
+                    ;
+
+                    var embeddingTable = new Tabulator("#embeddingTable", {
+                        height: "600px",
+                        layout: "fitColumns",
+                        data: embeddingTable_data,
+                        columns: embeddingTable_col,
+                    });
+
+                    embeddingTable.on("rowClick", function (e, row) {
+                        var row_data = row.getData();
+                        if (row_data.embedding_status) {
+                            layer.open({
+                                type: 1,
+                                content: `<div class="layui-form-item" style="margin: 30px;">{% translate '确认删除' %} ${row_data.embedding_name} {% translate '？' %}</div>`,
+                                btn: ['{% translate '删除' %}'],
+                                yes: function (index, layero) {
+                                    layer.msg("{% translate '正在删除，请稍后' %}");
+                                    // 向服务端发送指令
+                                    fetch("/delEmbedding", {
+                                        method: 'POST',
+                                        body: row_data.embedding_id
+                                    }).then(function (response) {
+                                        return response.json();
+                                    }).then(function (data) {
+                                        layer.close(index);
+                                        location.reload();
+                                    });
+
+
+                                }
+                            });
+                        } else {
+                            layui.msg("{% translate '任务暂未完成，无法删除' %}");
+                        }
+
+                    });
+                </script>
+            </div>
+
+
+            <div class="tab-pane fade" id="nav-generate" role="tabpanel" aria-labelledby="nav-generate-tab" style="text-align: -webkit-center;">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h5>{% translate '输入Tag生图' %}</h5>
+                        <br>
+                        <form class="layui-form" style="height:100%;" id="formPreviewForm" action="/addGenerateTask" method="post">
+
+                            <div id="keyword" class="layui-form-item" data-id="keyword" data-tag="input"
+                                 data-index="0">
+                                <label class="layui-form-label layui-form-required" style="width: 120px;">{% translate '提示词:' %}</label>
+                                <div class="layui-input-block" style="margin-left: 120px">
+                                    <textarea id="opengpt_target" name="keyword" value="" placeholder="{% translate 'Tag间用英文逗号隔开' %}" class="layui-input" lay-vertype="tips"
+                                              lay-verify="required" style="width:100%; height: 100px"></textarea>
+                                </div>
+                                <a class="badge badge-primary badge-pill" onclick="opengpt_generate_keyword()">{% translate 'chat-gpt一键生成提示词' %}</a>
+                            </div>
+
+
+                            <div id="opposite_keyword" class="layui-form-item" data-id="opposite_keyword"
+                                 data-tag="input" data-index="1">
+                                <label class="layui-form-label layui-form-required" style="width: 120px;">{% translate '反向提示词:' %}</label>
+                                <div class="layui-input-block" style="margin-left: 120px">
+                                    <textarea name="opposite_keyword" value="" placeholder="{% translate 'Tag间用英文逗号隔开' %}" class="layui-input" style="width:100%; height: 100px"></textarea>
+                                </div>
+                            </div>
+
+                            <div id="width" class="layui-form-item" data-id="width" data-tag="slider"
+                                 data-index="2">
+                                <label class="layui-form-label" style="width: 80px;">{% translate '宽度:' %}</label>
+                                <div class="layui-input-block layui-form" style="width:calc(100% - 80px);margin-left: 80px">
+                                    <div id="sliderwidth" class="widget-slider">
+                                    </div>
+                                    <input name="width" type="hidden" value="512">
+                                </div>
+                            </div>
+
+                            <div id="height" class="layui-form-item" data-id="height" data-tag="slider"
+                                 data-index="3">
+                                <label class="layui-form-label" style="width: 80px;">{% translate '高度:' %}</label>
+                                <div class="layui-input-block layui-form" style="width:calc(100% - 80px);margin-left: 80px">
+                                    <div id="sliderheight" class="widget-slider">
+                                    </div>
+                                    <input name="height" type="hidden" value="512">
+                                </div>
+                            </div>
+
+                            <div id="round" class="layui-form-item" data-id="round" data-tag="slider"
+                                 data-index="4">
+                                <label class="layui-form-label" style="width: 110px;">{% translate '生成批次:' %}</label>
+                                <div class="layui-input-block layui-form" style="width:calc(100% - 110px);margin-left: 110px">
+                                    <div id="sliderround" class="widget-slider">
+                                    </div>
+                                    <input name="round" type="hidden" value="1">
+                                </div>
+                            </div>
+
+                            <div id="num" class="layui-form-item" data-id="num" data-tag="slider"
+                                 data-index="6">
+                                <label class="layui-form-label" style="width: 110px;">{% translate '生成数量:' %}</label>
+                                <div class="layui-input-block layui-form" style="width:calc(100% - 110px);margin-left: 110px">
+                                    <div id="slidernum" class="widget-slider">
+                                    </div>
+                                    <input name="num" type="hidden" value="1">
+                                </div>
+                            </div>
+
+                            <div id="art_width" class="layui-form-item" data-id="art_width"
+                                 data-tag="slider" data-index="5">
+                                <label class="layui-form-label" style="width: 180px;">{% translate '美术风格权重%:' %}</label>
+                                <div class="layui-input-block layui-form" style="width:calc(100% - 180px);margin-left: 180px">
+                                    <div id="sliderart_width" class="widget-slider">
+                                    </div>
+                                    <input name="art_width" type="hidden" value="90">
+                                </div>
+                            </div>
+
+                            <div id="art_step" class="layui-form-item" data-id="art_step" data-tag="slider"
+                                 data-index="7">
+                                <label class="layui-form-label" style="width: 180px;">{% translate '美术风格迭代步数:' %}</label>
+                                <div class="layui-input-block layui-form" style="width:calc(100% - 180px);margin-left: 180px">
+                                    <div id="sliderart_step" class="widget-slider">
+                                    </div>
+                                    <input name="art_step" type="hidden" value="10">
+                                </div>
+                            </div>
+
+                            <div id="face_fix" class="layui-form-item" data-id="face_fix" data-tag="checkbox"
+                                 data-index="8">
+                                <label class="layui-form-label" style="width: 120px;">{% translate '面部修复:' %}</label>
+                                <div class="layui-input-block" style="width:calc(100% - 120px);margin-left: 120px">
+                                    <input type="checkbox" name="face_fix" lay-skin="switch" lay-text="{% translate '是' %}|{% translate '否' %}">
+                                </div>
+                            </div>
+
+                            <div id="seed" class="layui-form-item" data-id="seed" data-tag="input"
+                                 data-index="9">
+                                <label class="layui-form-label layui-form-required" style="width: 80px;">{% translate '种子:' %}</label>
+                                <div class="layui-input-block" style="margin-left: 80px">
+                                    <input name="seed" value="-1" placeholder="请输入" class="layui-input" lay-vertype="tips"
+                                           lay-verify="required" style="width:100%">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <button type="submit" class="layui-btn" lay-submit="" lay-filter="formPreviewForm">{% translate '提交' %}</button>
+                                <button type="reset" class="layui-btn layui-btn-primary" onclick="setTimeout(function (){createGenerateForm()},100);">{% translate '重置' %}</button>
+                            </div>
+                        </form>
+                        <script>
+                            function opengpt_generate_keyword() {
+                                layer.open({
+                                    type: 1,
+                                    content: `
+                                        <div class="layui-form-item" style="width: 500px; margin: 30px;">
+                                            <label class="layui-form-label" style="width: 120px;">{% translate '输入描述' %}</label>
+                                            <div class="layui-input-block" style="margin-left: 120px">
+                                                <textarea style="height: 100px" id="opengpt_generate" type="text" autocomplete="off" placeholder="{% translate '请输入' %}" class="layui-input"></textarea>
+                                            </div>
+
+                                        </div>
+                                        <div id="opengpt_result_div" style="width: 500px; margin: 30px; display: none;" class="layui-form-item" style="width: 500px; margin: 30px;">
+                                            <label class="layui-form-label" style="width: 120px;">{% translate '生成结果' %}</label>
+                                            <div class="layui-input-block" style="margin-left: 120px">
+                                                <textarea style="height: 100px" id="opengpt_result" type="text" autocomplete="off" placeholder="{% translate '请输入' %}" class="layui-input"></textarea>
+                                            </div>
+                                        </div>
+                                    `,
+                                    title: "{% translate '生成' %}",
+                                    btn: ['{% translate '生成' %}'],
+                                    yes: function (index, layero) {
+                                        layer.msg("{% translate '正在生成，请稍后' %}");
+                                        // 向服务端发送指令
+                                        fetch("/chatgptTagGenerate", {
+                                            method: 'POST',
+                                            body: document.getElementById("opengpt_generate").value
+                                        }).then(function (response) {
+                                            return response.json();
+                                        }).then(function (data) {
+                                            document.getElementById("opengpt_result").value = data.msg;
+                                            // layer.close(index);
+                                            document.getElementById("opengpt_result").readOnly = true;
+                                            document.getElementById("opengpt_result_div").style.display = "";
+                                            document.getElementById("opengpt_generate").value = "";
+                                        });
+
+
+                                    }
+                                });
+                            };
+
+                            function createGenerateForm() {
+                                var $ = layui.jquery
+                                var slider = layui.slider
+
+                                slider.render({
+                                    elem: "#sliderwidth",
+                                    value: 512,
+                                    min: 64,
+                                    max: 2048,
+                                    step: 64,
+                                    input: true,
+                                    change: function (value) {
+                                        $("#width").find("input[name=width]").val(value);
+                                    }
+                                });
+                                slider.render({
+                                    elem: "#sliderheight",
+                                    value: 512,
+                                    min: 64,
+                                    max: 2048,
+                                    step: 64,
+                                    input: true,
+                                    change: function (value) {
+                                        $("#height").find("input[name=height]").val(value);
+                                    }
+                                });
+                                slider.render({
+                                    elem: "#sliderround",
+                                    value: 1,
+                                    min: 1,
+                                    max: 100,
+                                    step: 1,
+                                    input: true,
+                                    change: function (value) {
+                                        $("#round").find("input[name=round]").val(value);
+                                    }
+                                });
+                                slider.render({
+                                    elem: "#sliderart_width",
+                                    value: 90,
+                                    min: 0,
+                                    max: 100,
+                                    step: 1,
+                                    input: true,
+                                    change: function (value) {
+                                        $("#art_width").find("input[name=art_width]").val(value);
+                                    }
+                                });
+                                slider.render({
+                                    elem: "#slidernum",
+                                    value: 1,
+                                    min: 1,
+                                    max: 8,
+                                    step: 1,
+                                    input: true,
+                                    change: function (value) {
+                                        $("#num").find("input[name=num]").val(value);
+                                    }
+                                });
+                                slider.render({
+                                    elem: "#sliderart_step",
+                                    value: 5,
+                                    min: 0,
+                                    max: 50,
+                                    step: 1,
+                                    input: true,
+                                    change: function (value) {
+                                        $("#art_step").find("input[name=art_step]").val(value);
+                                    }
+                                });
+                            };
+                            createGenerateForm();
+                        </script>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-lg-8">
+                        <h5>{% translate '创建的生图任务状态' %}</h5>
+                        <small>{% translate '点击行下载生成完成的图片' %}</small>
+                        <div id="generateTable"></div>
+                    </div>
+                </div>
+
+                <script>
+                    var generateTable_data = {% autoescape off %}{{ generateList }}{% endautoescape %};
+
+                    var generateTable_col = [
+                        {
+                            title: "{% translate '创建时间' %}",
+                            field: "generate_time",
+                            headerSort: false,
+                            width: 160
+                        },
+                        {
+                            title: "{% translate '完成状态' %}",
+                            field: "generate_status",
+                            formatter: "tickCross",
+                            headerSort: false,
+                            width: 120
+                        },
+                        {title: "{% translate '提示词' %}", field: "generate_keyword", headerSort: false, width: 200},
+                        {title: "{% translate '反向提示词' %}", field: "generate_opposite_keyword", headerSort: false, width: 200},
+                        {title: "{% translate '宽度' %}", field: "generate_width", headerSort: false, width: 80},
+                        {title: "{% translate '高度' %}", field: "generate_height", headerSort: false, width: 80},
+                        {title: "{% translate '生成批次' %}", field: "generate_round", headerSort: false, width: 120},
+                        {title: "{% translate '生成数量' %}", field: "generate_num", headerSort: false, width: 120},
+                        {title: "%{% translate '美术风格权重' %}", field: "generate_art_width", headerSort: false, width: 120},
+                        {title: "{% translate '美术风格迭代步数' %}", field: "generate_art_step", headerSort: false, width: 120},
+                        {title: "{% translate '种子' %}", field: "generate_seed", headerSort: false, width: 120}
+                    ]
+
+                    for (i in generateTable_col) {
+                        generateTable_col[i]["headerHozAlign"] = "center";
+                        generateTable_col[i]["hozAlign"] = "center";
+                        generateTable_col[i]["vertAlign"] = "middle";
+                    }
+                    ;
+
+                    var generateTable = new Tabulator("#generateTable", {
+                        height: "600px",
+                        layout: "fitColumns",
+                        data: generateTable_data,
+                        columns: generateTable_col,
+                    });
+
+                    generateTable.on("rowClick", function (e, row) {
+                        var row_data = row.getData();
+                        if (row_data.generate_status) {
+                            window.open(`/showGenerateImage?id=${row_data.generate_id}`);
+                        } else {
+                            layui.msg("{% translate '任务暂未完成，无法查看' %}");
+                        }
+
+                    });
+                </script>
+            </div>
+
+
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {% translate '邮箱' %}
+                        <small>{{ user.get_username }}</small>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {% translate '修改密码' %}
+                        <a class="badge badge-primary badge-pill" href="/resetPassword">{% translate '点击此处' %}</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {% translate '联系管理' %}
+                        <small>QQ:
+                            1627962984</small>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
